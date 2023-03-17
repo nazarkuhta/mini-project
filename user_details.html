@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="userDetailsDiv">
+    <p><strong>Id:</strong> <span id="id"></span></p>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Username:</strong> <span id="userName"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <div>
+        <strong>Address:</strong>
+        <p><strong>Street:</strong> <span id="street"></span></p>
+        <p><strong>Suite:</strong> <span id="suite"></span></p>
+        <p><strong>City:</strong> <span id="city"></span></p>
+        <p><strong>Zipcode:</strong> <span id="zipcode"></span></p>
+        <div>
+            <strong>Geo:</strong>
+            <p><strong>Lat:</strong> <span id="lat"></span></p>
+            <p><strong>Lng:</strong> <span id="lng"></span></p>
+        </div>
+    </div>
+    <p><strong>Phone:</strong> <span id="phone"></span></p>
+    <p><strong>Website:</strong> <span id="website"></span></p>
+    <div>
+        <strong>Company:</strong>
+        <p><strong>Name:</strong> <span id="companyName"></span></p>
+        <p><strong>Catchphrase:</strong> <span id="catchPhrase"></span></p>
+        <p><strong>bs:</strong> <span id="bs"></span></p>
+    </div>
+    <button id="postsBtn">Posts</button>
+</div>
+
+
+<script>
+    // На странице user-details.html:
+    // 4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
+    // 5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера
+
+    let usersUrl = new URL(location.href)
+    let userId = usersUrl.searchParams.get(`id`);
+
+
+
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+        .then(value => value.json())
+        .then(user => {
+            document.getElementById(`id`).innerText = `Id: ${user.id}`
+            document.getElementById(`name`).innerText = `Name: ${user.name}`
+            document.getElementById(`userName`).innerText = `User Name: ${user.username}`
+            document.getElementById(`email`).innerText = `Email: ${user.email}`
+            document.getElementById(`phone`).innerText = `Phone: ${user.phone}`
+            document.getElementById(`website`).innerText = `Website: ${user.website}`
+            document.getElementById(`city`).innerText = `City: ${user.address.city}`
+            document.getElementById(`street`).innerText = `Street: ${user.address.street}`
+            document.getElementById(`suite`).innerText = `Suite: ${user.address.suite}`
+            document.getElementById(`zipcode`).innerText = `Zipcode: ${user.address.zipcode}`
+            document.getElementById(`lat`).innerText = `Lat: ${user.address.geo.lat}`
+            document.getElementById(`lng`).innerText = `Lng: ${user.address.geo.lng}`
+            document.getElementById(`bs`).innerText = `Bs: ${user.company.bs}`
+            document.getElementById(`catchPhrase`).innerText = `Catch phrase: ${user.company.catchPhrase}`
+            document.getElementById(`companyName`).innerText = `Company name: ${user.company.name}`
+            console.log(user)
+
+        })
+    let postsBtn = document.getElementById(`postsBtn`);
+postsBtn.addEventListener(`click`,function (eo){
+    eo.preventDefault()
+
+    let postsContainer = document.createElement("div")
+    postsContainer.classList.add(`container`)
+    document.body.appendChild(postsContainer)
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+        .then(value => value.json())
+        .then(posts =>{
+            for (let post of posts) {
+                let postDiv = document.createElement(`div`);
+                postDiv.classList.add(`postsDiv`)
+                let postTitle = document.createElement(`a`)
+                postTitle.innerText = `Tittle: ${post.title}`
+                postTitle.href = `post_details.html?id=${post.id}`
+                postDiv.appendChild(postTitle)
+                postsContainer.appendChild(postDiv)
+            }
+            console.log(posts)
+        })
+})
+
+
+
+
+
+
+    // let userId = postUrl.searchParams.get(`id`)
+
+
+
+
+
+</script>
+</body>
+</html>

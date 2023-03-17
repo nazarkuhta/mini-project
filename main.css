@@ -1,0 +1,70 @@
+
+/*// Стилизація проєкта -*/
+/*// index.html - всі блоки з user - по 2 в рядок. кнопки/аосилвння розташувати під інформацією про user.*/
+/*//     user-details.html - блок з інфою про user зверху сторінки. Кнопка нижчє, на 90% ширини сторінки, по центру.*/
+/*//     блоки з короткою іфною про post - в ряд по 5 .*/
+/*//     post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.*/
+/*//     Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини і тд)*/
+
+
+.userDetailsDiv{
+    width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: black 1px solid;
+    padding: 10px;
+}
+.userDetailsDiv button{
+    width: 400px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap: 10px;
+}
+.userBtn{
+    border: black 1px solid;
+
+}
+.user{
+    border: black 1px solid;
+    text-align: center;
+    padding: 20px;
+
+}
+.postsDiv{
+    height: content-box;
+    border: black 1px solid;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.postInfoDiv{
+    flex-direction: column;
+    border: black 1px solid;
+    display: flex;
+text-align: center;
+    margin: 10px;
+    justify-content: center;
+}
+.commentsContainer{
+    margin-top: 15px;
+    display: flex;
+    grid-gap: 10px;
+
+}
+.commentDiv{
+    padding: 10px;
+    width: 400px;
+    border: black 1px solid;
+}
+
